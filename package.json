@@ -1,0 +1,13 @@
+{
+  "name": "lab8-cicd",
+  "version": "1.0.0",
+  "description": "CISC 886 Lab 8 CI/CD app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  }
+}

@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    image: ahmedmohamed056/lab6-app:latest
+    container_name: lab8-app-container
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tasksdb
+      - MODE=compose
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: lab8-mongo-container
+    volumes:
+      - mongo-data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+volumes:
+  mongo-data:
