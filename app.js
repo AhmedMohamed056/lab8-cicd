@@ -19,6 +19,14 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
+async function ensureTeaTask() {
+  const existingTea = await Task.findOne({ name: 'Tea' });
+  if (!existingTea) {
+    await Task.create({ id: 7, name: 'Tea', status: 'pending' });
+    console.log('Tea task inserted');
+  }
+}
+
 app.get('/', (req, res) => {
   res.json({
     app: 'CISC 886 Lab 8',
@@ -45,7 +53,9 @@ app.get('/tasks', async (req, res) => {
   }
 });
 
-mongoose.connection.once('open', () => {
+mongoose.connection.once('open', async () => {
+  await ensureTeaTask();
+
   app.listen(PORT, () => {
     console.log('--------------------------------------------------');
     console.log('  CISC 886 Lab 8 — App started');
